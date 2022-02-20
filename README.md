@@ -10,3 +10,8 @@ If you're taking this course on edX or if your classroom is using
 Codio, the assignments are linked from there.  Alternatively, you can
 follow links to the assignment GitHub repos from the textbook.
 
+Remember to change gem and database each time before push.
+
+### useful instructions:
+bundle exec rake db:setup <br />
+heroku run rake db:setup
