@@ -1,14 +1,27 @@
 <!--  This file is app/views/movies/index.html.erb -->
 <h2>All Movies</h2>
-
+<%= form_tag movies_path, :method => :get do %>
+  Include:
+  <% @m_ratings.each do |rating| %>
+    <%= rating %>
+    <%= check_box_tag "ratings[#{rating}]" %>
+  <% end %>
+  <%= submit_tag 'Refresh' %>
+<% end %>
 <%#  Part 2: Start here... %>
 
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>Movie Title</th>
+      <!--<th>Movie Title</th>-->
+      <th class="<%= ('hilite' if @sorting=='title') %>">
+        <%= link_to "Movie Title" ,movies_path(sort:"title"), id:"title_header" %>
+      </th>
       <th>Rating</th>
-      <th>Release Date</th>
+      <!--<th>Release Date</th>-->
+      <th class="<%= ('hilite' if @sorting=='release_date') %>">
+        <%= link_to "Release Date", movies_path(sort:"release_date"), id:"release_date_header" %>
+      </th>
       <th>More Info</th>
     </tr>
   </thead>
