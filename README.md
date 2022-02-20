@@ -13,5 +13,5 @@ follow links to the assignment GitHub repos from the textbook.
 Remember to change gem and database each time before push.
 
 ### useful instructions:
-bundle exec rake db:setup \n
+bundle exec rake db:setup <br />
 heroku run rake db:setup
