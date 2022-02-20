@@ -10,12 +10,27 @@ class MoviesController < ApplicationController
       # @movies = Movie.all
       # for part one
       @m_ratings = Movie.all_ratings
-      @sorting = params[:sort]
+      # @sorting = params[:sort]
       # @movies = Movie.all.order(@sorting)
       # for part two
-      params[:ratings].nil? ? @p_t = @m_ratings : @p_t = params[:ratings].keys
+      # params[:ratings].nil? ? @p_t = @m_ratings : @p_t = params[:ratings].keys
       
-      @movies = Movie.where(rating: @p_t).order(@sorting)
+      # @movies = Movie.where(rating: @p_t).order(@sorting)
+      
+      # for part three
+      @sorting = params[:sort] || session[:sort]
+      # implement hash for ratings
+      # @final_ratings = Hash[@m_ratings.map {|rating| [rating, rating]}] || session[:ratings] || params[:ratings]
+      ## order matters
+      @final_ratings =  params[:ratings] || session[:ratings] || Hash[@m_ratings.map {|rating| [rating, rating]}]
+      @movies = Movie.where(rating:@final_ratings.keys).order(@sorting)
+      # if statement to correct sorting via sessions
+      if params[:ratings] != session[:ratings] or params[:sort] != session[:sort]
+        session[:ratings] = @final_ratings
+        session[:sort] = @sorting
+        flash.keep
+        redirect_to movies_path(sort: session[:sort], ratings: session[:ratings])
+      end
     end
   
     def new

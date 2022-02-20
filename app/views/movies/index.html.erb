@@ -1,12 +1,12 @@
 <!--  This file is app/views/movies/index.html.erb -->
 <h2>All Movies</h2>
-<%= form_tag movies_path, :method => :get do %>
+<%= form_tag movies_path, :method => :get, id:"ratings_form" do %>
   Include:
   <% @m_ratings.each do |rating| %>
     <%= rating %>
-    <%= check_box_tag "ratings[#{rating}]", '',('checked' if @p_t.include? rating) %>
+    <%= check_box_tag "ratings[#{rating}]", '',('checked' if @final_ratings.include? rating) %>
   <% end %>
-  <%= submit_tag 'Refresh' %>
+  <%= submit_tag 'Refresh',id: "ratings_submit", :class => 'btn btn-primary' %>
 <% end %>
 <%#  Part 2: Start here... %>
 
@@ -15,15 +15,16 @@
     <tr>
       <!--<th>Movie Title</th>-->
       <th class="<%= ('hilite' if @sorting=='title') %>">
-        <%= link_to "Movie Title" ,movies_path(sort:"title"), id:"title_header" %>
+        <%= link_to "Movie Title" ,movies_path(sort:'title', ratings:@final_ratings), id:"title_header" %>
       </th>
       <th>Rating</th>
       <!--<th>Release Date</th>-->
       <th class="<%= ('hilite' if @sorting=='release_date') %>">
-        <%= link_to "Release Date", movies_path(sort:"release_date"), id:"release_date_header" %>
+        <%= link_to "Release Date", movies_path(sort:'release_date', ratings:@final_ratings), id:"release_date_header" %>
       </th>
       <th>More Info</th>
     </tr>
+
   </thead>
   <tbody>
     <% @movies.each do |movie| %>

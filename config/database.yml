@@ -25,7 +25,7 @@
 #   database: db/production.sqlite3
 
 
-## foir heroku
+# foir heroku
 default: &default
   adapter: postgresql
   encoding: unicode
