@@ -4,7 +4,7 @@
   Include:
   <% @m_ratings.each do |rating| %>
     <%= rating %>
-    <%= check_box_tag "ratings[#{rating}]" %>
+    <%= check_box_tag "ratings[#{rating}]", '',('checked' if @p_t.include? rating) %>
   <% end %>
   <%= submit_tag 'Refresh' %>
 <% end %>
